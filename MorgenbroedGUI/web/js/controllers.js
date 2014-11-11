@@ -99,13 +99,11 @@ morgenBroedControllers.controller('AdminCtrl', function($scope, $http) {
         {
                $scope.batchJobStatus = 'Batch-job er afviklet uden fejl';
                $scope.executionId = data;
-               $scope.status=data;
         });
 
          promise.error(function (data) 
         {
             $scope.batchJobStatus = 'Batch-job fejlede';
-            $scope.status=data;
         });
      };
                     
