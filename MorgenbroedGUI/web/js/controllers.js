@@ -97,7 +97,7 @@ morgenBroedControllers.controller('AdminCtrl', function($scope, $http) {
                 
          promise.success(function (data) 
         {
-               $scope.batchJobStatus = 'Batch-job er afviklet uden fejl';
+               $scope.batchJobStatus = 'Batch-job er afviklet';
                $scope.executionId = data;
         });
 
@@ -107,6 +107,27 @@ morgenBroedControllers.controller('AdminCtrl', function($scope, $http) {
         });
      };
                     
+    $scope.genstartJob = function() 
+      {
+        $scope.batchJobStatus = 'Genstartet batch-job er under afvikling';
+        var promise = $http({
+        method: 'POST',
+        url: 'http://localhost:8080/MorgenbroedBatch/JobSubmitterServlet?fileName='+$scope.fileName+'&execId='+$scope.executionId,
+        headers: {'Content-Type': 'application/json'},
+        data:  $scope.input
+        });
+                
+         promise.success(function (data) 
+        {
+               $scope.batchJobStatus = 'Genstartet batch-job er afviklet';
+               $scope.executionId = data;
+        });
+
+         promise.error(function (data) 
+        {
+            $scope.batchJobStatus = 'Batch-job fejlede';
+        });
+     };
 
 });
 
